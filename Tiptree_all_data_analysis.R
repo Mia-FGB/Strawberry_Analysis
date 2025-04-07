@@ -45,68 +45,43 @@ dec_data <- raw_dec_data %>%
 dec_data$Date.collected <- dmy(dec_data$Date.collected)
 
 # Combine the datasets
-all_data <- rbind(feb_aug_data, dec_data)
+seq_data <- rbind(feb_aug_data, dec_data)
 
-# Change the locations
-standardise_location <- function(df) {
-  # Check which column exists: "location" or "Location"
-  loc_col <- if ("location" %in% names(df)) {
-    "location"
-  } else if ("Location" %in% names(df)) {
-    "Location"
-  } else {
-    stop("No 'location' or 'Location' column found.")
-  }
-  
-  # Rename to a working temp name, mutate, then rename back
-  df <- df %>%
-    rename(temp_loc = !!loc_col) %>%
-    mutate(temp_loc = case_when(
-      temp_loc == "F"  ~ "Field",
-      temp_loc == "LG" ~ "Greenhouse 2",
-      temp_loc == "RG" ~ "Greenhouse 1",
-      TRUE ~ temp_loc
-    )) %>%
-    rename(!!loc_col := temp_loc)
-  
-  return(df)
-}
-
-
-all_data <- standardise_location(all_data)
+# Change Location col
+seq_data <- seq_data %>%
+  rename(Location = location) %>%  # Rename the column
+  mutate(Location = case_when(
+    Location == "RG" ~ "Greenhouse 1",
+    Location == "LG" ~ "Greenhouse 2",
+    Location == "F"  ~ "Field",
+  ))
 
 # Setting up constants for all graphs------
 
 # To keep consistent limits -
-date_range <- range(all_data$Date.collected, na.rm = TRUE)
-# Can cal this in all graphs
+date_range <- range(seq_data$Date.collected, na.rm = TRUE)
+date_range <- c(date_range[1] - days(7), date_range[2] + days(7)) # To keep eror bar caps
+
+#Consistent breaks 
 month_scale <- scale_x_date(
   date_breaks = "1 month",
   date_labels = "%b",
   limits = date_range
 )
 
-custom_theme <- theme_minimal(base_size = 14) +
+# Same theme 
+custom_theme <- theme_minimal(base_size = 12) +
   theme(
     axis.line = element_line(color = "black", linewidth = 0.3),
     panel.grid.major = element_blank()
   )
 
-# Considering combining the plots with patchwork -----
-genus_plots <- list()
-disease_plots <- list()
-temp_plots <- list()
-humidity_plots <- list()
-combined_plots <- list()
-
 
 # Sequence data plots  ---------------------------------------------
 
-#  - Script updated April 2025
-
 #mean, min & max data for each location & genus for "errorbar"
-data_min_max <- all_data %>%
-  group_by(Genus, location, Date.collected) %>%
+data_min_max <- seq_data %>%
+  group_by(Genus, Location, Date.collected) %>%
   summarise(
     mean = mean(log_hits, na.rm = TRUE),
     min = min(log_hits, na.rm = TRUE),
@@ -114,20 +89,20 @@ data_min_max <- all_data %>%
     .groups = "drop"
   )
 
-# Function to create plots for each genus - facetted by location 
+# Function to create plots for each genus - faceted by location 
 create_genus_plot <- function(genus_name) {
   genus_data <- filter(data_min_max, Genus == genus_name)
   
   ggplot(genus_data, aes(x = Date.collected, y = mean)) +
-    geom_point(size = 3) +
+    # geom_point(size = 3) +
     geom_line(size = 0.8) +
-    geom_errorbar(aes(ymin = min, ymax = max), width = 7, color = "grey50") +
-    facet_wrap(~location, ncol = 3) +
-    month_scale +
+    geom_errorbar(aes(ymin = min, ymax = max), linewidth = 0.6, width = 5, color = "grey50") +
+    facet_wrap(~Location, ncol = 3) +
     labs(
       x = " ", # Want it empty so i can stack
       y = "Hits per 1000 (log)"
     ) +
+    month_scale +
     custom_theme +
     scale_y_continuous(expand = c(0, 0))
 }
@@ -142,34 +117,26 @@ for (genus in genus_list) {
 }
 
 # Disease score data -------------
-disease_score <- read.csv("Metadata/tiptree_disease_data.csv", header=TRUE)
+disease_score <- read.csv("Metadata/disease_score.csv", header=TRUE)
 
-#Change location 
-disease_score <- standardise_location(disease_score)
-
-# filter out N/A
-filter_disease_score <- disease_score %>% 
-  filter(score != 'N/A') %>% 
-  subset(select = -c(total_reads, read_count))
-
+# Convert na values to 0
+disease_score$Score[is.na(disease_score$Score)] <- 0
 
 # make the correct format
-filter_disease_score$date = as.Date(filter_disease_score$date, format="%d/%m/%Y")
-filter_disease_score$score = as.integer(filter_disease_score$score)
-
+disease_score$Date = as.Date(disease_score$Date, format="%d/%m/%Y")
 
 # Function to create and save plot for a specific species
 disease_score_plot <- function(species_name, save_path = "Graphs/Disease_Score/", width = 24, height = 5) {
   # Filter data
-  species_data <- filter(filter_disease_score, species == species_name)
+  species_data <- filter(disease_score, Disease == species_name)
   
   # Skip if no data
   if (nrow(species_data) == 0) return(NULL)
   
   # Create plot
-  p <- ggplot(species_data, aes(x = date, y = score, group = location)) +
+  p <- ggplot(species_data, aes(x = Date, y = Score, group = Location)) +
     geom_point(size = 3) +
-    facet_grid(cols = vars(location)) +
+    facet_grid(cols = vars(Location)) +
     month_scale +
     labs(
       x = " ",
@@ -185,14 +152,13 @@ disease_score_plot <- function(species_name, save_path = "Graphs/Disease_Score/"
   return(p)
 }
 
-# Run function for the 3 species - to create seperate plots
+# Run function for the 3 species - to create separate plots
 for (genus in genus_list) {
   disease_score_plot(genus)
 }
 
 
 # Environmental Data --------------
-
 
 Temp_Hum <- read.csv("Metadata/Tiptree_Temp_Hum.csv", header=TRUE, na.strings=c(""," "))
 
@@ -222,20 +188,7 @@ Temp_Hum_Avg <- Temp_Hum %>%
     .groups = "drop"
   )
 
-# Temp Graph --
-Temp_all_graph <-  ggplot(Temp_Hum_Avg, aes(x = date_only, y = mean_temp)) +
-  geom_ribbon(aes(ymin = mean_temp - sd_temp, ymax = mean_temp + sd_temp),
-              fill = "grey80") +
-  geom_line(colour = "black")+
-  facet_grid(~factor(Location, levels=c('Field', 'Greenhouse 1', 'Greenhouse 2'))) +
-  xlab(label = "Month") + 
-  ylab(label = "Temperature (°C)") + 
-  month_scale +
-  custom_theme
-
-Temp_all_graph
-
-ggsave(filename= "Graphs/Weather_Data/all_temp.pdf", plot = Temp_all_graph, width=24, height=5)
+#Function for environmental data plotting 
 
 plot_env_variable <- function(data, x_var, y_mean, y_sd, y_label, output_file = NULL) {
   p <- ggplot(data, aes(x = {{ x_var }}, y = {{ y_mean }})) +
@@ -275,17 +228,84 @@ plot_env_variable(
   output_file = "Graphs/Weather_Data/all_humidity.pdf"
 )
 
-# Attempting to combine the plots into one rather than individually ---
+
+# Fungicide Spraying  ------------------
+
+# Data Prep 
+spraying <-  read.csv("Metadata/spraying.csv") %>% 
+  mutate(Fungicide = str_remove(Sprayed, "\\s*\\(.*\\)")) %>% 
+  select(where(~ !all(is.na(.))))     # drop NA-only columns
+
+#Fungicide info
+frac <- read.csv("Metadata/fung_frac_risk.csv") #Sheet of Fungicide info
+
+#Merge on frac to get the protection info from fungicides
+spraying <- spraying %>%
+  left_join(frac, by = "Fungicide") 
+
+# Remove NA and Insecticide
+spraying <- spraying %>%
+  filter(!is.na(Target) & !(Target %in% c("n/a", "Insecticide"))) 
+
+spray_deduplicated <- spraying %>%
+  select(Fungicide, Location, Date, Target) %>% 
+  distinct()  # Remove duplicated rows
+
+spray_deduplicated$Date <- as.Date(spray_deduplicated$Date, format="%d/%m/%Y")
+
+# Plot Fungicide just to see -------
+# spraying_dates <-  
+#   ggplot(spray_deduplicated, aes(x = Date, y = Target, colour = Target)) +
+#   geom_point(shape = 4, size = 6) +
+#   facet_grid(cols= vars(Location)) +
+#   xlab(label = "Month") + 
+#   ylab(label = "Fungicide") + 
+#   ggtitle("Spraying dates") +
+#   month_scale +
+#   custom_theme
+# 
+# spraying_dates
+# 
+# ggsave(filename= "Graphs/Fungicide/application_dates.pdf", plot = spraying_dates, width=24, height=5)
+
+# Setting up the lines to use in combined plots ----
+spray_deduplicated$Target <- factor(spray_deduplicated$Target,
+                               levels = c("Botrytis & Podosphaera", "Botrytis", "Podosphaera"))
+
+spray_colours <- c(
+  "Botrytis & Podosphaera" = "#E32E60",
+  "Botrytis" = "#305182",
+  "Podosphaera" = "#4FBDC5"
+)
+
+# Spray lines with color mapping - change the aesthetics here
+spray_lines <- list(
+  geom_vline(
+    data = spray_deduplicated,
+    aes(xintercept = Date, color = Target),
+   # linetype = "dashed",
+     linewidth = 0.6,
+     alpha = 0.6
+  ),
+  scale_color_manual(values = spray_colours, name = "Spray Target") # to add a legend 
+)
+
+# Combined Plots -------------
 
 for (genus in genus_list) {
   # Sequence plot (keep Y label, remove X)
   genus_plot <- create_genus_plot(genus) +
-    xlab(NULL)
+    xlab(NULL) +
+    spray_lines +
+    theme(legend.key.height = unit(2, "lines")) +
+    guides(color = guide_legend(override.aes = list(linewidth = 2)))
   
   # Disease score plot (remove title and X label)
   disease_plot <- disease_score_plot(genus, save_path = NULL) +
     labs(title = NULL) +
     xlab(NULL) +
+    spray_lines +
+    theme(legend.position = "none") + # So the legend isn't repeated
     theme(strip.text = element_blank())
   
   # Temp plot (remove X label only)
@@ -303,16 +323,25 @@ for (genus in genus_list) {
   ) +
     theme(strip.text = element_blank())
   
-  # Combine all
+  # Adding "No data" to the Field Humidity plot
+  humidity_plot <- humidity_plot + 
+    geom_text(
+      data = Temp_Hum_Avg %>% filter(Location == "Field") %>% slice(1),  # one row per facet
+      aes(x = mean(date_range), y = 65),  # adjust position
+      label = "No data", color = "grey60", size = 8
+    )
+  
+  # Combine all plots
   combined_plot <- genus_plot /
     disease_plot /
     temp_plot /
-    humidity_plot +
-    plot_annotation(title = paste("Combined Data for Genus:", genus))
+    humidity_plot 
+  # +
+  #   plot_annotation(title = paste("Combined Data for Genus:", genus))
   
   # Save it
   ggsave(
-    filename = paste0("Graphs/Combined_Genus/combined_", genus, ".pdf"),
+    filename = paste0("Graphs/Combined_Genus/combined_no_title_", genus, ".pdf"),
     plot = combined_plot,
     width = 14,
     height = 16,
@@ -321,31 +350,6 @@ for (genus in genus_list) {
 }
 
 
-# Fungicide Spraying  ------------------
 
-spraying <- read.csv("Metadata/Tiptree_spraying.csv", header=TRUE)
 
-# Need the date to be ordered
-spraying$Date = as.Date(spraying$Date, format="%d/%m/%Y")
-
-spraying <- standardise_location(spraying)
-
-#Remove NA
-na_remove_spraying <- spraying %>% 
-  filter(protection != 'N/A')
-
-# Plot to show the dates of the fungicide applications in different locations 
-spraying_dates <-  
-  ggplot(na_remove_spraying, aes(x = Date, y = protection, colour = protection)) +
-  geom_point(shape = 4, size = 6) +
-  facet_grid(cols= vars(Location)) +
-  xlab(label = "Month") + 
-  ylab(label = "Fungicide") + 
-  month_scale +
-  ggtitle("Spraying dates") +
-  custom_theme
-
-spraying_dates
-
-ggsave(filename= "Graphs/Fungicide/application_dates.pdf", plot = spraying_dates, width=24, height=5)
 
