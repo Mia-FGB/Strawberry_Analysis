@@ -6,8 +6,9 @@ library(dplyr)
 library(lubridate)
 library(scales)
 library(patchwork)
+library(stringr)
 
-setwd("~/OneDrive - Norwich BioScience Institutes/Air_Samples/Tiptree")
+ setwd("~/OneDrive - Norwich BioScience Institutes/Air_Samples/Tiptree")
 
 #Prepping the data---------------------
 
@@ -73,7 +74,7 @@ month_scale <- scale_x_date(
 custom_theme <- theme_minimal(base_size = 12) +
   theme(
     axis.line = element_line(color = "black", linewidth = 0.3),
-    panel.grid.major = element_blank()
+    panel.grid.minor = element_blank()
   )
 
 
@@ -287,7 +288,7 @@ spray_lines <- list(
      linewidth = 0.6,
      alpha = 0.6
   ),
-  scale_color_manual(values = spray_colours, name = "Spray Target") # to add a legend 
+  scale_color_manual(values = spray_colours, name = "Fungicide Target") # to add a legend 
 )
 
 # Combined Plots -------------
@@ -336,12 +337,13 @@ for (genus in genus_list) {
     disease_plot /
     temp_plot /
     humidity_plot 
-  # +
-  #   plot_annotation(title = paste("Combined Data for Genus:", genus))
+  +
+    plot_annotation(title = paste("Combined Data for Genus:", genus))
   
   # Save it
   ggsave(
-    filename = paste0("Graphs/Combined_Genus/combined_no_title_", genus, ".pdf"),
+    # filename = paste0("Graphs/Combined_Genus/combined_no_title_", genus, ".pdf"),
+    filename = paste0("Graphs/Combined_Genus/combined_", genus, ".pdf"),
     plot = combined_plot,
     width = 14,
     height = 16,
