@@ -1,0 +1,97 @@
+Sample	Experiment	BR Qubit	20 ng	H2O	Barcode	Raw reads	Collection Date	Air sampler	Location	Insect	DNA yield (extraction)	DNA yield (Mia_WGA)	DNA yield (Darren_WGA)	DNA yield of used sample (WGA)	pass reads	fail reads	total reads	N50 Length	Pass reads >300 bp (%)	Pass reads removed due to filters (%)	Pool
+1.1	Air				1	/ei/projects/7/724b6a9a-6416-47eb-be58-d3737023e29b/data/raw	10/02/2022	Coriolis Micro	Field		too low	25	Na	25	53476	6424	59900	2172	96.47	1.14	1
+1.2	Air				1	/ei/projects/7/724b6a9a-6416-47eb-be58-d3737023e29b/data/raw	10/02/2022	Coriolis Micro	Field		0.254	32.2	Na	32.2	65932	5689	71621	1848	95.94	1.04	2
+1.3	Air				9	/ei/projects/7/724b6a9a-6416-47eb-be58-d3737023e29b/data/raw	10/02/2022	Coriolis Micro	Round A / NGS 1		1.8	too low	too low	0	3117	1327	4444	1160	90.28	1.09	1
+1.4	Air				9	/ei/projects/7/724b6a9a-6416-47eb-be58-d3737023e29b/data/raw	10/02/2022	Coriolis Micro	Round A / NGS 1		1.62	0.213	too low	0.213	2027	1695	3722	1053	85.74	2.02	2
+1.5	Air				17	/ei/projects/7/724b6a9a-6416-47eb-be58-d3737023e29b/data/raw	10/02/2022	Coriolis Micro	Round B / NGS 2		0.97	88	Na	88	44917	6474	51391	3176	96.58	2.11	1
+1.6	Air				17	/ei/projects/7/724b6a9a-6416-47eb-be58-d3737023e29b/data/raw	10/02/2022	Coriolis Micro	Round B / NGS 2		0.485	115	Na	115	3364	694	4058	4128	93.88	3.42	2
+2.1	Air				2	/ei/projects/7/724b6a9a-6416-47eb-be58-d3737023e29b/data/raw	09/03/2022	Coriolis Micro	Round A / NGS 1		too low	2.41	too low	2.41	64003	8723	72726	816	93.01	0.49	1
+2.2	Air				2	/ei/projects/7/724b6a9a-6416-47eb-be58-d3737023e29b/data/raw	09/03/2022	Coriolis Micro	Round A / NGS 1		0.29	too low	too low	0	1342	1952	3294	464	66.02	0.82	2
+2.3	Air				10	/ei/projects/7/724b6a9a-6416-47eb-be58-d3737023e29b/data/raw	09/03/2022	Coriolis Micro	Round B / NGS 2		too low	too low	too low	0	125	395	520	2745	91.2	2.4	1
+2.4	Air				10	/ei/projects/7/724b6a9a-6416-47eb-be58-d3737023e29b/data/raw	09/03/2022	Coriolis Micro	Round B / NGS 2		0.16	0.709	too low 	0.709	2605	1159	3764	522	89.9	0.54	2
+2.5	Air				18	/ei/projects/7/724b6a9a-6416-47eb-be58-d3737023e29b/data/raw	09/03/2022	Coriolis Micro	Field		0.395	110	Na	110	66259	7963	74222	3294	97.49	1.91	1
+2.6	Air				18	/ei/projects/7/724b6a9a-6416-47eb-be58-d3737023e29b/data/raw	09/03/2022	Coriolis Micro	Field		too low	38.6	Na	38.6	54657	5022	59679	2331	97.43	0.15	2
+3.1	Air				3	/ei/projects/7/724b6a9a-6416-47eb-be58-d3737023e29b/data/raw	05/04/2022	Coriolis Micro	Field		0.843	124	Na	124	32225	5876	38101	4770	97.4	4.25	1
+3.2	Air				3	/ei/projects/7/724b6a9a-6416-47eb-be58-d3737023e29b/data/raw	05/04/2022	Coriolis Micro	Field		1.86	too low	85.7	85.7	26314	4265	30579	6536	97.16	8.35	2
+3.3	Air				11	/ei/projects/7/724b6a9a-6416-47eb-be58-d3737023e29b/data/raw	05/04/2022	Coriolis Micro	Round B / NGS 2		0.901	35.4	Na	35.4	47590	6416	54006	4193	97.54	3.4	1
+3.4	Air				11	/ei/projects/7/724b6a9a-6416-47eb-be58-d3737023e29b/data/raw	05/04/2022	Coriolis Micro	Round B / NGS 2		0.379	7.01	Na	7.01	46029	5227	51256	2281	96.66	1.11	2
+3.5	Air				19	/ei/projects/7/724b6a9a-6416-47eb-be58-d3737023e29b/data/raw	05/04/2022	Coriolis Micro	Round A / NGS 1		0.317	22.9	Na	22.9	83310	16300	99610	1881	97.08	0.97	1
+3.6	Air				19	/ei/projects/7/724b6a9a-6416-47eb-be58-d3737023e29b/data/raw	05/04/2022	Coriolis Micro	Round A / NGS 1		0.289	3.97	Na	3.97	23663	6059	29722	843	92.67	0.16	2
+4.1	Air				4	/ei/projects/7/724b6a9a-6416-47eb-be58-d3737023e29b/data/raw	11/05/2022	Coriolis Micro	Field		1.91	too low	17.6	17.6	39514	5531	45045	5889	97.9	3.73	1
+4.2	Air				4	/ei/projects/7/724b6a9a-6416-47eb-be58-d3737023e29b/data/raw	11/05/2022	Coriolis Micro	Field		2.09	17.8	Na	17.8	44428	4652	49080	1450	96.36	1.04	2
+4.3	Air				12	/ei/projects/7/724b6a9a-6416-47eb-be58-d3737023e29b/data/raw	11/05/2022	Coriolis Micro	Round A / NGS 1		0.817	too low	too low	0	3460	1165	4625	667	92.98	0.52	1
+4.4	Air				12	/ei/projects/7/724b6a9a-6416-47eb-be58-d3737023e29b/data/raw	11/05/2022	Coriolis Micro	Round A / NGS 1		0.322	too low 	too low	0	46029	789	46818	1881	1.17	0	2
+4.5	Air				20	/ei/projects/7/724b6a9a-6416-47eb-be58-d3737023e29b/data/raw	11/05/2022	Coriolis Micro	Round B / NGS 2		0.5	1.34	2.19	2.19	35971	6248	42219	4168	97.04	3.12	1
+4.6	Air				20	/ei/projects/7/724b6a9a-6416-47eb-be58-d3737023e29b/data/raw	11/05/2022	Coriolis Micro	Round B / NGS 2		0.352	too low	too low	0	1372	679	2051	617	88.05	0.95	2
+5.1	Air				5	/ei/projects/7/724b6a9a-6416-47eb-be58-d3737023e29b/data/raw	07/06/2022	Coriolis Micro	Field		0.61	1.34	26.2	26.2	62203	7143	69346	4651	97.85	0.5	1
+5.2	Air				5	/ei/projects/7/724b6a9a-6416-47eb-be58-d3737023e29b/data/raw	07/06/2022	Coriolis Micro	Field	yes	7	110	Na	110	77162	5367	82529	4303	97.12	0.81	2
+5.3	Air				13	/ei/projects/7/724b6a9a-6416-47eb-be58-d3737023e29b/data/raw	07/06/2022	Coriolis Micro	Round A / NGS 1		2.48	0.88	131	131	77457	8969	86426	6185	97.21	0.76	1
+5.4	Air				13	/ei/projects/7/724b6a9a-6416-47eb-be58-d3737023e29b/data/raw	07/06/2022	Coriolis Micro	Round A / NGS 1		1.79	0.349	136	136	130799	13706	144505	3672	97.11	0.63	2
+5.5	Air				21	/ei/projects/7/724b6a9a-6416-47eb-be58-d3737023e29b/data/raw	07/06/2022	Coriolis Micro	Round B / NGS 2		2.97	144	Na	144	53480	6626	60106	3251	96.78	0.96	1
+5.6	Air				21	/ei/projects/7/724b6a9a-6416-47eb-be58-d3737023e29b/data/raw	07/06/2022	Coriolis Micro	Round B / NGS 2		1.39	73	Na	73	57846	4650	62496	2095	96.57	0.81	2
+5.7	Air				8	/ei/projects/7/724b6a9a-6416-47eb-be58-d3737023e29b/data/raw	07/06/2022	Coriolis Compact	Field		0.19	too low	Na	0	2011	1348	3359	967	87.47	1.39	1
+5.9	Air				8	/ei/projects/7/724b6a9a-6416-47eb-be58-d3737023e29b/data/raw	07/06/2022	Coriolis Compact	Round A / NGS 1		0.29	5.3	Na	5.3	53747	3729	57476	3175	96.97	0.75	2
+5.11	Air				16	/ei/projects/7/724b6a9a-6416-47eb-be58-d3737023e29b/data/raw	07/06/2022	Coriolis Compact	Round B / NGS 2		0.4	30.2	Na	30.2	81949	7346	89295	3287	97.23	0.98	1
+5.13	Air				16	/ei/projects/7/724b6a9a-6416-47eb-be58-d3737023e29b/data/raw	07/06/2022	Innova Prep Cub	Field	yes	4.65	259	Na	259	160896	14195	175091	2519	97.23	0.64	2
+5.14	Air				24	/ei/projects/7/724b6a9a-6416-47eb-be58-d3737023e29b/data/raw	07/06/2022	Innova Prep Cub	Round A / NGS 1		1.92	0.14	Na	0.14	7315	2317	9632	883	92.4	1.38	1
+5.15	Air				24	/ei/projects/7/724b6a9a-6416-47eb-be58-d3737023e29b/data/raw	07/06/2022	Innova Prep Cub	Round B / NGS 2		2.29	94.5	Na	94.5	39121	3937	43058	2723	97.32	0.93	2
+6.1	Air				6	/ei/projects/7/724b6a9a-6416-47eb-be58-d3737023e29b/data/raw	13/07/2022	Coriolis Micro	Field		0.984	too low	36.4	36.4	66531	7561	74092	5381	97.14	0.98	1
+6.2	Air				6	/ei/projects/7/724b6a9a-6416-47eb-be58-d3737023e29b/data/raw	13/07/2022	Coriolis Micro	Field	yes	13.8	148	Na	148	78166	6750	84916	3178	97.52	1.31	2
+6.3	Air				14	/ei/projects/7/724b6a9a-6416-47eb-be58-d3737023e29b/data/raw	13/07/2022	Coriolis Micro	Round A / NGS 1		0.616	52	Na	52	71817	7771	79588	1853	97.18	0.93	1
+6.4	Air				14	/ei/projects/7/724b6a9a-6416-47eb-be58-d3737023e29b/data/raw	13/07/2022	Coriolis Micro	Round A / NGS 1	yes	4.29	187	Na	187	35297	3540	38837	3077	97.17	0.8	2
+6.5	Air				22	/ei/projects/7/724b6a9a-6416-47eb-be58-d3737023e29b/data/raw	13/07/2022	Coriolis Micro	Round B / NGS 2		0.322	too low	too low	0	3278	2290	5568	1999	83.83	0.61	1
+6.6	Air				22	/ei/projects/7/724b6a9a-6416-47eb-be58-d3737023e29b/data/raw	13/07/2022	Coriolis Micro	Round B / NGS 2		0.486	6.96	Na	6.96	37765	6291	44056	1548	93.98	0.65	2
+7.1	Air				7	/ei/projects/7/724b6a9a-6416-47eb-be58-d3737023e29b/data/raw	11/08/2022	Coriolis Micro	Field		0.908	117	Na	117	56430	6884	63314	3591	96.56	1.53	1
+7.2	Air				7	/ei/projects/7/724b6a9a-6416-47eb-be58-d3737023e29b/data/raw	11/08/2022	Coriolis Micro	Field		0.775	too low	25.5	25.5	51153	5464	56617	3857	95.93	1.54	2
+7.3	Air				15	/ei/projects/7/724b6a9a-6416-47eb-be58-d3737023e29b/data/raw	11/08/2022	Coriolis Micro	Round A / NGS 1		0.446	12.4	Na	12.4	31807	4070	35877	1631	96.8	1.48	1
+7.4	Air				15	/ei/projects/7/724b6a9a-6416-47eb-be58-d3737023e29b/data/raw	11/08/2022	Coriolis Micro	Round A / NGS 1		0.428	too low	68.5	68.5	34612	3159	37771	5013	97.42	1.47	2
+7.5	Air				23	/ei/projects/7/724b6a9a-6416-47eb-be58-d3737023e29b/data/raw	11/08/2022	Coriolis Micro	Round B / NGS 2		0.383	too low	55.5	55.5	46196	6293	52489	4140	97.18	1.65	1
+7.6	Air				23	/ei/projects/7/724b6a9a-6416-47eb-be58-d3737023e29b/data/raw	11/08/2022	Coriolis Micro	Round B / NGS 2		0.588	100	Na	100	59361	5058	64419	2087	97.29	1.31	2
+	Mildew	12.4	1.61	7.39	1	/ei/projects/7/724b6a9a-6416-47eb-be58-d3737023e29b/data/raw															
+	Mildew	too low	9.00	0.00	2	/ei/projects/7/724b6a9a-6416-47eb-be58-d3737023e29b/data/raw															
+	Mildew	18.1	1.10	7.90	3	/ei/projects/7/724b6a9a-6416-47eb-be58-d3737023e29b/data/raw															
+	Mildew	27.6	0.72	8.28	4	/ei/projects/7/724b6a9a-6416-47eb-be58-d3737023e29b/data/raw															
+	Mildew	9.37	2.13	6.87	5	/ei/projects/7/724b6a9a-6416-47eb-be58-d3737023e29b/data/raw															
+	Mildew	3.44	5.81	3.19	6	/ei/projects/7/724b6a9a-6416-47eb-be58-d3737023e29b/data/raw															
+	Mildew	78.5	0.25	8.75	7	/ei/projects/7/724b6a9a-6416-47eb-be58-d3737023e29b/data/raw															
+	Mildew	8.46	2.36	6.64	8	/ei/projects/7/724b6a9a-6416-47eb-be58-d3737023e29b/data/raw															
+	Mildew	3.09	6.47	2.53	9	/ei/projects/7/724b6a9a-6416-47eb-be58-d3737023e29b/data/raw															
+	Mildew	6.12	3.27	5.73	10	/ei/projects/7/724b6a9a-6416-47eb-be58-d3737023e29b/data/raw															
+	Mildew	3.42	5.85	3.15	11	/ei/projects/7/724b6a9a-6416-47eb-be58-d3737023e29b/data/raw															
+	Mildew	14.9	1.34	7.66	12	/ei/projects/7/724b6a9a-6416-47eb-be58-d3737023e29b/data/raw															
+	Mildew	2.21	9.05	-0.05	13	/ei/projects/7/724b6a9a-6416-47eb-be58-d3737023e29b/data/raw															
+	Mildew	7.1	2.82	6.18	14	/ei/projects/7/724b6a9a-6416-47eb-be58-d3737023e29b/data/raw															
+	Mildew	4.98	4.02	4.98	15	/ei/projects/7/724b6a9a-6416-47eb-be58-d3737023e29b/data/raw															
+	Mildew	10.2	1.96	7.04	16	/ei/projects/7/724b6a9a-6416-47eb-be58-d3737023e29b/data/raw															
+	Mildew	2.46	8.13	0.87	17	/ei/projects/7/724b6a9a-6416-47eb-be58-d3737023e29b/data/raw															
+	Mildew	4	5.00	4.00	18	/ei/projects/7/724b6a9a-6416-47eb-be58-d3737023e29b/data/raw															
+	Mildew	too low	9.00	0.00	19	/ei/projects/7/724b6a9a-6416-47eb-be58-d3737023e29b/data/raw															
+	Mildew	too low	9.00	0.00	20	/ei/projects/7/724b6a9a-6416-47eb-be58-d3737023e29b/data/raw															
+	Mildew	2.24	8.93	0.07	21	/ei/projects/7/724b6a9a-6416-47eb-be58-d3737023e29b/data/raw															
+	Mildew	too low	9.00	0.00	22	/ei/projects/7/724b6a9a-6416-47eb-be58-d3737023e29b/data/raw															
+	Mildew	6.81	2.94	6.06	23	/ei/projects/7/724b6a9a-6416-47eb-be58-d3737023e29b/data/raw															
+	Mildew	10.8	1.85	7.15	24	/ei/projects/7/724b6a9a-6416-47eb-be58-d3737023e29b/data/raw															
+	Mildew	5.68	3.52	5.48	25	/ei/projects/7/724b6a9a-6416-47eb-be58-d3737023e29b/data/raw															
+	Mildew	6.36	3.14	5.86	26	/ei/projects/7/724b6a9a-6416-47eb-be58-d3737023e29b/data/raw															
+	Mildew	3.44	5.81	3.19	27	/ei/projects/7/724b6a9a-6416-47eb-be58-d3737023e29b/data/raw															
+	Mildew	2.58	7.75	1.25	28	/ei/projects/7/724b6a9a-6416-47eb-be58-d3737023e29b/data/raw															
+	Mildew	too low	9.00	0.00	29	/ei/projects/7/724b6a9a-6416-47eb-be58-d3737023e29b/data/raw															
+	Mildew	too low	9.00	0.00	30	/ei/projects/7/724b6a9a-6416-47eb-be58-d3737023e29b/data/raw															
+	Mildew	3.12	6.41	2.59	31	/ei/projects/7/724b6a9a-6416-47eb-be58-d3737023e29b/data/raw															
+	Mildew	2.9	6.90	2.10	32	/ei/projects/7/724b6a9a-6416-47eb-be58-d3737023e29b/data/raw															
+	Mildew	6.03	3.32	5.68	33	/ei/projects/7/724b6a9a-6416-47eb-be58-d3737023e29b/data/raw															
+	Mildew	too low	9.00	0.00	34	/ei/projects/7/724b6a9a-6416-47eb-be58-d3737023e29b/data/raw															
+	Mildew	too low	9.00	0.00	35	/ei/projects/7/724b6a9a-6416-47eb-be58-d3737023e29b/data/raw															
+	Mildew	2.39	8.37	0.63	36	/ei/projects/7/724b6a9a-6416-47eb-be58-d3737023e29b/data/raw															
+	Mildew	2.44	8.20	0.80	37	/ei/projects/7/724b6a9a-6416-47eb-be58-d3737023e29b/data/raw															
+	Mildew	24.7	0.81	8.19	38	/ei/projects/7/724b6a9a-6416-47eb-be58-d3737023e29b/data/raw															
+	Mildew	4.96	4.03	4.97	39	/ei/projects/7/724b6a9a-6416-47eb-be58-d3737023e29b/data/raw															
+	Mildew	18.1	1.10	7.90	40	/ei/projects/7/724b6a9a-6416-47eb-be58-d3737023e29b/data/raw															
+	Mildew	too low	9.00	0.00	41	/ei/projects/7/724b6a9a-6416-47eb-be58-d3737023e29b/data/raw															
+	Mildew	2.33	8.58	0.42	42	/ei/projects/7/724b6a9a-6416-47eb-be58-d3737023e29b/data/raw															
+	Mildew	too low	9.00	0.00	43	/ei/projects/7/724b6a9a-6416-47eb-be58-d3737023e29b/data/raw															
+	Mildew	15.4	1.30	7.70	44	/ei/projects/7/724b6a9a-6416-47eb-be58-d3737023e29b/data/raw															
+	Mildew	too low	9.00	0.00	45	/ei/projects/7/724b6a9a-6416-47eb-be58-d3737023e29b/data/raw															
+	Mildew	7.79	2.57	6.43	46	/ei/projects/7/724b6a9a-6416-47eb-be58-d3737023e29b/data/raw															
+	Mildew	7.43	2.69	6.31	47	/ei/projects/7/724b6a9a-6416-47eb-be58-d3737023e29b/data/raw															
+	Negative	too low	9.00	0.00	48	/ei/projects/7/724b6a9a-6416-47eb-be58-d3737023e29b/data/raw															
