@@ -1,0 +1,28 @@
+﻿Fungicide,Target,Active_chemical,Chemical_Biological_group,FRAC_code,resistance_risk
+Switch,Botrytis,Cyprodinil,anilinopyrimidine,9,Medium
+Switch,Botrytis,fludioxonil,phenylpyrroles ,12,Low - Medium
+Signum,Botrytis & Podosphaera,boscalid,Pyridine-carboximide,7,Medium - High
+Signum,Botrytis & Podosphaera,pyraclostrobin,methoxy-carbamates,11,High
+Frupica SC,Botrytis,mepanipyrim,aminopyrimidines,9,Medium
+Systhane 20 EW,Podosphaera,myclobutanil,Triazoles,3,Medium
+Karma,Podosphaera,potassium hydrogen carbonate ,Organic,N/A,N/A
+Sonata,Podosphaera,Bacillus pumilus strain QST2808 ,Bacterial,N/A,N/A
+Charm,Podosphaera,difenoconazole,Triazole,3,Medium
+Charm,Podosphaera,fluxapyroxad,pyrazole-4- carboxamides ,7,Medium - High
+Stroby WG,Podosphaera,kresoxim-methyl,oximino-acetates,11,High
+Teldor,Botrytis,fenhexamid,hydroxyanilides,17,Low - Medium
+Talius,Podosphaera,proquinazid,quinazolinone,13,Medium
+Topas,Podosphaera,penconazole,Triazole,3,Medium
+Serenade ASO,Botrytis,Bacillus subtilis strain QST 713,Bacteria,BM 02,N/A
+Nimrod,Podosphaera,Bupirimate,hydroxy-(2-amino)- pyrimidines,8,Medium
+Takumi SC,Podosphaera,cyflufenamid,Phenyl-acetamide,U 06,N/A
+Luna Sensation,Botrytis & Podosphaera,fluopyram,pyridinyl-ethyl- benzamides ,7,Medium - High
+Luna Sensation,Botrytis & Podosphaera,trifloxystrobin,oximino-acetates ,11,High
+Justice,Podosphaera,proquinazid,quinazolinone,13,Medium
+Amistar Top,Podosphaera,Azoxystrobin,methoxy-acrylates,11,High
+Amistar Top,Podosphaera,Difenoconazole,Triazoles,3,Medium
+Amylo X WG,Botrytis & Podosphaera,bacillus amyloliquefaciens plantarum D747,Bacteria,BM 02,N/A
+Amistar,Podosphaera,azoxystrobin,methoxy-acrylates,11,High
+Scala,Botrytis,pyrimethanil,anilino-pyrimidines ,9,Medium
+Batavia,Insecticide,,,,
+Rigel WP,n/a,n/a,n/a,n/a,n/a
