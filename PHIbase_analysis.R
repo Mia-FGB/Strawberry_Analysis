@@ -260,8 +260,8 @@ plot_top_species_stacked <- function(data,
                                      x_label = "Group",
                                      y_label = "Total Hits per 100,000",
                                      save_path = NULL,
-                                     width = 12,
-                                     height = 18) {
+                                     width = 10,
+                                     height = 8) {
   group_var <- rlang::sym(group_var)
   
   # Summarise hits by group (month or location)
@@ -320,12 +320,6 @@ plot_top_species_stacked(
 )
 
 #By location
-# Change labels and order
-top_species_data <- top_species_data %>%
-  mutate(location = factor(location,
-                           levels = c("F", "RG", "LG"), 
-                           labels = c("Field", "Greenhouse 1", "Greenhouse 2")))
-
 plot_top_species_stacked(
   data = top_species_data,
   group_var = "location",
