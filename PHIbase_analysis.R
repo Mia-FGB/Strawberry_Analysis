@@ -218,20 +218,24 @@ abundance_summary <- abundance_summary %>%
   mutate(species = factor(species, levels = rev(species)))  # bar chart top-down
 
 most_abundant <- ggplot(abundance_summary, aes(x = species, y = total_hits)) +
+  scale_y_continuous(
+    labels = scales::label_comma(accuracy = 1)
+  ) +
   geom_col(fill = "#305182") +
   coord_flip() +
   labs(
-    title = "Top 20 Most Abundant Species",
     x = "Species",
     y = "Total Hits per 100,000"
   ) + theme_minimal(base_size = 14) +
   theme(
+    plot.margin = margin(t = 10, r = 20, b = 10, l = 30),
     axis.line = element_line(color = "black", linewidth = 0.3),
     panel.grid.minor = element_blank(),
     panel.grid.major = element_blank()
   )
+most_abundant
 
-ggsave(filename = "Graphs/PHIbase_Top20_Bar.pdf", plot = most_abundant, width = 10, height = 8)
+ggsave(filename = "Graphs/PHIbase_Top20_Bar.pdf", plot = most_abundant, width = 10, height = 6)
 
 # Stacked bar chart ----
 top_10_species <- all_heatmap_filtered %>%
