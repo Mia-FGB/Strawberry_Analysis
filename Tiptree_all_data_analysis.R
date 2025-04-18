@@ -8,7 +8,7 @@ library(scales)
 library(patchwork)
 library(stringr)
 
- setwd("~/OneDrive - Norwich BioScience Institutes/Air_Samples/Tiptree")
+setwd("~/OneDrive - Norwich BioScience Institutes/Air_Samples/Tiptree")
 
 #Prepping the data---------------------
 
@@ -48,6 +48,11 @@ dec_data$Date.collected <- dmy(dec_data$Date.collected)
 # Combine the datasets
 seq_data <- rbind(feb_aug_data, dec_data)
 
+# Adding a hits per 100k column
+seq_data <- seq_data %>%
+  mutate(hits_per_100000 = hits_per_1000 * 100) %>%
+  mutate(log_hits_100k = log10(hits_per_100000))
+
 # Change Location col
 seq_data <- seq_data %>%
   rename(Location = location) %>%  # Rename the column
@@ -84,9 +89,9 @@ custom_theme <- theme_minimal(base_size = 12) +
 data_min_max <- seq_data %>%
   group_by(Genus, Location, Date.collected) %>%
   summarise(
-    mean = mean(log_hits, na.rm = TRUE),
-    min = min(log_hits, na.rm = TRUE),
-    max = max(log_hits, na.rm = TRUE),
+    mean = mean(log_hits_100k, na.rm = TRUE),
+    min = min(log_hits_100k, na.rm = TRUE),
+    max = max(log_hits_100k, na.rm = TRUE),
     .groups = "drop"
   )
 
@@ -98,14 +103,17 @@ create_genus_plot <- function(genus_name) {
     # geom_point(size = 3) +
     geom_line(size = 0.8) +
     geom_errorbar(aes(ymin = min, ymax = max), linewidth = 0.6, width = 5, color = "grey50") +
+    scale_y_continuous(
+      labels = function(x) scales::comma(10^x), # So they are actual values but plotted on log scale
+      expand = c(0, 0)
+    ) +
     facet_wrap(~Location, ncol = 3) +
     labs(
       x = " ", # Want it empty so i can stack
-      y = "Hits per 1000 (log)"
+      y = "Hits per 100,000" # As the axis labels are converted
     ) +
     month_scale +
-    custom_theme +
-    scale_y_continuous(expand = c(0, 0))
+    custom_theme
 }
 
 # To create seperate plots for each Genus
@@ -145,6 +153,8 @@ disease_score_plot <- function(species_name, save_path = "Graphs/Disease_Score/"
     ) +
     custom_theme +
     scale_y_continuous(limits = c(-0.5,5))
+  
+  print(p)
   
   # Save plot
   filename <- paste0(save_path, "disease_score_0425_", species_name, ".pdf")
@@ -293,6 +303,9 @@ spray_lines <- list(
 
 # Combined Plots -------------
 
+
+genus_list <- unique(data_min_max$Genus)
+
 for (genus in genus_list) {
   # Sequence plot (keep Y label, remove X)
   genus_plot <- create_genus_plot(genus) +
@@ -333,17 +346,15 @@ for (genus in genus_list) {
     )
   
   # Combine all plots
-  combined_plot <- genus_plot /
+  combined_plot <- (genus_plot /
     disease_plot /
     temp_plot /
-    humidity_plot 
-  +
-    plot_annotation(title = paste("Combined Data for Genus:", genus))
+    humidity_plot )
+
+  filename <- paste0("Graphs/Combined_Genus/combined_no_title_", genus, ".pdf")
   
-  # Save it
   ggsave(
-    # filename = paste0("Graphs/Combined_Genus/combined_no_title_", genus, ".pdf"),
-    filename = paste0("Graphs/Combined_Genus/combined_", genus, ".pdf"),
+    filename = filename,
     plot = combined_plot,
     width = 14,
     height = 16,
