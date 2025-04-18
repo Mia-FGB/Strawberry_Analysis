@@ -1,3 +1,5 @@
+# Script to look at the PHIbase minimap data 
+
 library(ggplot2)
 library(RColorBrewer)
 library(tidyr)
@@ -207,6 +209,7 @@ plot_species_heatmap(
 
 
 # Bar plot of the most abundant species --------
+
 abundance_summary <- all_heatmap_filtered %>%
   group_by(species) %>%
   summarise(total_hits = sum(hits_per_100.000, na.rm = TRUE)) %>%
@@ -221,7 +224,7 @@ most_abundant <- ggplot(abundance_summary, aes(x = species, y = total_hits)) +
   scale_y_continuous(
     labels = scales::label_comma(accuracy = 1)
   ) +
-  geom_col(fill = "#305182") +
+  geom_col(fill = "#4FBDC5") +
   coord_flip() +
   labs(
     x = "Species",
@@ -233,11 +236,57 @@ most_abundant <- ggplot(abundance_summary, aes(x = species, y = total_hits)) +
     panel.grid.minor = element_blank(),
     panel.grid.major = element_blank()
   )
+
 most_abundant
 
 ggsave(filename = "Graphs/PHIbase_Top20_Bar.pdf", plot = most_abundant, width = 10, height = 6)
 
-# Stacked bar chart ----
+# Same top 20 but this time don't summarise ----
+top_20_species_names <- abundance_summary$species
+# Dataset with just the top 20 
+top_20_sp <- all_heatmap_filtered %>%
+  filter(species %in% top_20_species_names)
+
+# Get Mean & SD
+top_20_summary <- top_20_sp %>%
+  group_by(species) %>%
+  summarise(
+    mean_hits = mean(hits_per_100.000, na.rm = TRUE),
+    sd_hits = sd(hits_per_100.000, na.rm = TRUE),
+    n = n(),
+    se_hits = sd_hits / sqrt(n)
+  ) %>%
+  arrange(desc(mean_hits))
+
+#Nice order
+top_20_summary$species <- factor(top_20_summary$species, levels = rev(top_20_summary$species))
+
+
+# Plot with error bars
+most_abundant_with_error <- ggplot(top_20_summary, aes(x = species, y = mean_hits)) +
+  geom_col(fill = "#4FBDC5") +
+  geom_errorbar(aes(ymin = mean_hits - se_hits, ymax = mean_hits + se_hits), width = 0.4) +
+  coord_flip() +
+  scale_y_continuous(labels = scales::label_comma(accuracy = 1)) +
+  labs(
+    x = "Species",
+    y = "Mean Hits per 100,000"
+  ) +
+  theme_minimal(base_size = 14) +
+  theme(
+    plot.margin = margin(t = 10, r = 20, b = 10, l = 30),
+    axis.line = element_line(color = "black", linewidth = 0.3),
+    panel.grid.minor = element_blank(),
+    panel.grid.major = element_blank()
+  )
+
+most_abundant_with_error
+
+ggsave(filename = "Graphs/PHIbase_Top20_Bar_ErrorBars.pdf", plot = most_abundant_with_error, width = 10, height = 6)
+
+
+
+# Top 10 species stacked bar  ----
 top_10_species <- all_heatmap_filtered %>%
   group_by(species) %>%
   summarise(total_hits = sum(hits_per_100.000, na.rm = TRUE)) %>%
