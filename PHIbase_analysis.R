@@ -380,4 +380,100 @@ plot_top_species_stacked(
   save_path = "Graphs/stacked_bar_by_location.pdf",
 )
 
+#Facet by Location & Month ---
+# Summarise top species by month and location
+summary_data <- top_species_data %>%
+  group_by(month, location, species) %>%
+  summarise(total_hits = sum(hits_per_100.000, na.rm = TRUE), .groups = "drop")
 
+# Order species properly
+summary_data$species <- factor(summary_data$species, levels = top_10_species)
+
+# Ensure month ordering
+summary_data$month <- factor(summary_data$month,
+                             levels = c("Dec", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug"))
+
+# Plot
+facet_both <- ggplot(summary_data, aes(x = month, y = total_hits, fill = species)) +
+  geom_bar(stat = "identity", position = "stack") +
+  facet_wrap(~ location, nrow = 3) +   # Facet by location (rows)
+  scale_fill_manual(values = species_colors, name = "Species") +
+  scale_y_continuous(labels = scales::label_comma(accuracy = 1)) +
+  labs(
+    x = "Month",
+    y = "Total Hits per 100,000",
+  ) +
+  theme_minimal(base_size = 14) +
+  theme(
+    axis.line = element_line(color = "black", linewidth = 0.3),
+    plot.title = element_text(hjust = 0.5),
+    panel.grid.major = element_blank(),
+    panel.grid.minor = element_blank()
+  )
+
+ggsave(filename = "Graphs/stacked_bar_by_both.pdf", plot = facet_both, width = 10, height = 7)
+
+#Get numerical info on species numbers ----
+# Save in usable spreadsheet format and LaTex
+
+library(dplyr)
+library(tidyr)
+
+# Summarize TOTAL across all data
+total_species_raw <- all_heatmap_data %>%
+  group_by(location) %>%
+  summarise(Species = n_distinct(species)) %>%
+  mutate(Metric = "Total", Filter = "Raw")
+
+total_species_gt10 <- all_heatmap_data %>%
+  filter(read_count > 10) %>%
+  group_by(location) %>%
+  summarise(Species = n_distinct(species)) %>%
+  mutate(Metric = "Total", Filter = ">10 Reads")
+
+total_species_gt10_10samples <- all_heatmap_data %>%
+  filter(read_count > 10) %>%
+  group_by(species) %>%
+  filter(n_distinct(Sample) > 10) %>%
+  group_by(location) %>%
+  summarise(Species = n_distinct(species)) %>%
+  mutate(Metric = "Total", Filter = ">10 Reads in >10 Samples")
+
+# Summarize by MONTH
+species_by_month_raw <- all_heatmap_data %>%
+  group_by(month, location) %>%
+  summarise(Species = n_distinct(species)) %>%
+  mutate(Metric = as.character(month), Filter = "Raw")
+
+species_by_month_gt10 <- all_heatmap_data %>%
+  filter(read_count > 10) %>%
+  group_by(month, location) %>%
+  summarise(Species = n_distinct(species)) %>%
+  mutate(Metric = as.character(month), Filter = ">10 Reads")
+
+species_by_month_gt10_10samples <- all_heatmap_data %>%
+  filter(read_count > 10) %>%
+  group_by(species) %>%
+  filter(n_distinct(Sample) > 10) %>%
+  group_by(month, location) %>%
+  summarise(Species = n_distinct(species)) %>%
+  mutate(Metric = as.character(month), Filter = ">10 Reads in >10 Samples")
+
+# Combine the data
+all_summaries <- bind_rows(
+  total_species_raw,
+  total_species_gt10,
+  total_species_gt10_10samples,
+  species_by_month_raw,
+  species_by_month_gt10,
+  species_by_month_gt10_10samples
+)
+
+# Pivot
+final_table <- all_summaries %>%
+  unite(Location_Filter, location, Filter, sep = " - ") %>% # Combine location + filter into one column
+  pivot_wider(names_from = Location_Filter, values_from = Species) %>%
+  arrange(factor(Metric, levels = c("Total", "December", "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November")))  # optional: nice month order
+
+# Export
+write.csv(final_table, "scripts/Supplementary_Data/tiptree_species_counts_table.csv", row.names = FALSE)
