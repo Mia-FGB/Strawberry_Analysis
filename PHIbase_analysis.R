@@ -54,6 +54,19 @@ all_heatmap_filtered <-
     log_hits = log10(hits_per_100.000)) %>%     #log scale-Mutate the data to add a new row
   mutate(Sample = as.character(Sample))
 
+#Preparing filtered data ----
+
+#filtering out taxa which are only present in <10 samples - less stringent when grouped
+all_heatmap_filtered_10taxa <-
+  all_heatmap_filtered %>% 
+  group_by(species) %>% 
+  filter(n()>=10)
+
+# filtering out taxa which are only present in <15 samples - for all the samples to be plotted seperate
+all_heatmap_filtered_15taxa <- all_heatmap_filtered %>% 
+  group_by(species) %>% 
+  filter(n()>=15)
+
 
 
 # Plotting ---
@@ -127,19 +140,6 @@ plot_species_heatmap <- function(data,
   return(p)
 }
 
-#Preparing filtered data ----
-
-#filtering out taxa which are only present in <10 samples - less stringent when grouped
-all_heatmap_filtered_10taxa <-
-  all_heatmap_filtered %>% 
-  group_by(species) %>% 
-  filter(n()>=10)
-
-# filtering out taxa which are only present in <15 samples - for all the samples to be plotted seperate
-all_heatmap_filtered_15taxa <- all_heatmap_filtered %>% 
-  group_by(species) %>% 
-  filter(n()>=15)
-
 
 # Call the function ---
 # All samples-
@@ -165,13 +165,13 @@ plot_species_heatmap(
 )
 
 #Month rotated
-plot_species_heatmap(
+p_month_rot <- plot_species_heatmap(
   data = all_heatmap_filtered_10taxa,
   x = "month",
   y = "species",
   ylab="Month",
   xlab="Species",
-  title = "",
+  title = "(b) Grouped by collection month.",
   flip_axes = TRUE,
   save_path = "Graphs/Heatmaps/heatmap_by_month_rot.pdf",
   width = 18,
@@ -190,19 +190,28 @@ plot_species_heatmap(
 )
 
 # Rotated plot
-plot_species_heatmap(
+p_location_rot <- plot_species_heatmap(
   data = all_heatmap_filtered_10taxa,
   x = "location",
   y = "species",
   ylab = "Location",
   xlab="Species",
-  title = "",
+  title = "(a) Grouped by collection location.",
   flip_axes = TRUE,
   save_path = "Graphs/Heatmaps/heatmap_by_location_rot.pdf",
   width = 18,
   height = 12
 )
 
+# Number of species 
+length(unique(all_heatmap_filtered_10taxa$species))
+
+# Combining the rotated plots
+combined_plot <- p_location_rot / p_month_rot  # Stack vertically
+ggsave("Graphs/Heatmaps/heatmap_combined_rotated.pdf",
+       combined_plot,
+       width = 20,
+       height = 24)
 
 # Top 20 Species ----------------------------------------------------------
 
@@ -426,15 +435,15 @@ total_species_raw <- all_heatmap_data %>%
   mutate(Metric = "Total", Filter = "Raw")
 
 total_species_gt10 <- all_heatmap_data %>%
-  filter(read_count > 10) %>%
+  filter(read_count >= 10) %>%
   group_by(location) %>%
   summarise(Species = n_distinct(species)) %>%
   mutate(Metric = "Total", Filter = ">10 Reads")
 
 total_species_gt10_10samples <- all_heatmap_data %>%
-  filter(read_count > 10) %>%
+  filter(read_count >= 10) %>%
   group_by(species) %>%
-  filter(n_distinct(Sample) > 10) %>%
+  filter(n_distinct(Sample) >= 10) %>%
   group_by(location) %>%
   summarise(Species = n_distinct(species)) %>%
   mutate(Metric = "Total", Filter = ">10 Reads in >10 Samples")
@@ -446,15 +455,15 @@ species_by_month_raw <- all_heatmap_data %>%
   mutate(Metric = as.character(month), Filter = "Raw")
 
 species_by_month_gt10 <- all_heatmap_data %>%
-  filter(read_count > 10) %>%
+  filter(read_count >= 10) %>%
   group_by(month, location) %>%
   summarise(Species = n_distinct(species)) %>%
   mutate(Metric = as.character(month), Filter = ">10 Reads")
 
 species_by_month_gt10_10samples <- all_heatmap_data %>%
-  filter(read_count > 10) %>%
+  filter(read_count >= 10) %>%
   group_by(species) %>%
-  filter(n_distinct(Sample) > 10) %>%
+  filter(n_distinct(Sample) >= 10) %>%
   group_by(month, location) %>%
   summarise(Species = n_distinct(species)) %>%
   mutate(Metric = as.character(month), Filter = ">10 Reads in >10 Samples")
