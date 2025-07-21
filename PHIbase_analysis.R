@@ -121,7 +121,7 @@ plot_species_heatmap <- function(data,
     ) +
 
     labs(title = title, x = xlab, y = ylab) +
-    theme_minimal(base_size = 14) +
+    theme_minimal(base_size = 16) +
     theme(
       axis.text.x = element_text(angle = if (flip_axes) 70 else 0, hjust = 1),
       plot.title = element_text(hjust = 0.5),
@@ -210,8 +210,8 @@ length(unique(all_heatmap_filtered_10taxa$species))
 combined_plot <- p_location_rot / p_month_rot  # Stack vertically
 ggsave("Graphs/Heatmaps/heatmap_combined_rotated.pdf",
        combined_plot,
-       width = 20,
-       height = 24)
+       width = 22,
+       height = 33)
 
 # Top 20 Species ----------------------------------------------------------
 

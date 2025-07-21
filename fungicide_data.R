@@ -9,12 +9,12 @@ setwd("~/OneDrive - Norwich BioScience Institutes/Air_Samples/Tiptree")
 
 
 # Data 
-data <-  read.csv("Metadata/spraying.csv") %>% 
+data <-  read.csv("Scripts/Supplementary_Data/spraying.csv") %>% 
   mutate(Fungicide = str_remove(Sprayed, "\\s*\\(.*\\)")) %>% 
   select(where(~ !all(is.na(.))))     # drop NA-only columns
 
 #Fungicide info
-frac <- read.csv("Metadata/fung_frac_risk.csv") #Sheet of Fungicide info
+frac <- read.csv("Scripts/Supplementary_Data/fung_frac_risk.csv") #Sheet of Fungicide info
 
 #Merge on frac to get the protection info from fungicides
 merged <- data %>%
