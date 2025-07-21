@@ -120,12 +120,12 @@ plot_species_heatmap <- function(data,
       y = ifelse(flip, xlab, y)
     ) +
     theme(
-      axis.text.x = element_text(size = 12),
-      axis.text.y = element_text(size = 12),
-      axis.title = element_text(size = 16),
-      plot.title = element_text(size = 18, hjust = 0.5),
+      axis.text.x = element_text(size = 13),
+      axis.text.y = element_text(size = 13),
+      axis.title = element_text(size = 15),
+      plot.title = element_text(size = 20, hjust = 0.5),
       legend.title = element_text(size = 14),
-      legend.text = element_text(size = 12),
+      legend.text = element_text(size = 13),
       legend.key.size = unit(1.5, "cm"),
       legend.key.width = unit(0.4, "cm")
     ) +
@@ -165,18 +165,19 @@ plot_species_heatmap(
 )
 
 # Group by month - Horizonta plot
-plot_species_heatmap(
+mon_plot <- plot_species_heatmap(
   data = all_heatmap_filtered_10taxa,
   x = "month",
   y = "Species",
   xlab="Month",
-  title = "",
   save_path = "Graphs/Heatmaps/heatmap_by_month_rot.pdf",
   flip = TRUE,
   height = 6,
   width = 18,
-  theme_extra = theme(axis.text.x = element_text(angle = 90, hjust = 1, vjust = 0.5))
+  theme_extra = theme(axis.text.x = element_text(angle = 90, hjust = 1, vjust = 0.5)),
+  title = "By Month"
 )
+
 
 # Plot by location - vertical 
 plot_species_heatmap(
@@ -191,17 +192,23 @@ plot_species_heatmap(
 )
 
 # Plot by location - horizontal  
-plot_species_heatmap(
+loc_plot <- plot_species_heatmap(
   data = all_heatmap_filtered_10taxa,
   x = "location",
   y = "Species",
   xlab = "Location",
-  title = "",
   save_path = "Graphs/Heatmaps/heatmap_by_location_rot.pdf",
   flip = TRUE,
   height = 5,
   width = 18,
-  theme_extra = theme(axis.text.x = element_text(angle = 90, hjust = 1, vjust = 0.5))
+  theme_extra = theme(axis.text.x = element_text(angle = 90, hjust = 1, vjust = 0.5)),
+  title = "By Location"
 )
 
- 
+
+# Combining the two 
+combined <- mon_plot + loc_plot + plot_layout(ncol = 1)
+
+ggsave("Graphs/Heatmaps/combined_heatmap.pdf",
+       combined,
+       width = 20, height = 12)
