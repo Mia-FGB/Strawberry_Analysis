@@ -10,7 +10,6 @@ The scripts were mainly used to generate figures and summary tables for the Tipt
 - `*.R`: R scripts for data processing, plotting and statistical exploration.
 - `*.py`: Python helper scripts for parsing alignment outputs.
 - `*.ipynb`: exploratory Jupyter notebooks.
-- `Q20_phibase_mapping.Rproj`: RStudio project file.
 
 ## Main scripts
 
@@ -102,21 +101,6 @@ Exploratory notebook for looking at sample metadata. It reads the Tiptree metada
 
 Exploratory notebook for checking mildew/emergent pathogen pipeline outputs. It examines genome coverage results, focuses on mildew-related taxa such as `Podosphaera aphanis`, and explores coverage summaries from combined mappings and `samtools depth` output.
 
-## Inputs and outputs
-
-The scripts expect several local input files, including sequencing summaries, metadata tables, disease score data, weather data and fungicide records. Many paths are currently written as local absolute paths or local project-relative paths, so these will need to be updated before running the scripts on another machine.
-
-Common output folders used by the scripts include:
-
-- `Graphs/`
-- `Graphs/Heatmaps/`
-- `Graphs/PHIbase/`
-- `Graphs/Fungicide/`
-- `Graphs/Sequence_Data/`
-- `Graphs/Disease_Score/`
-- `Graphs/Combined_Genus/`
-- `Images_Tiptree/`
-
 ## Requirements
 
 The R scripts use packages including:
@@ -142,17 +126,3 @@ The Python notebooks use packages including:
 - `numpy`
 - `matplotlib`
 - `seaborn`
-
-The alignment helper scripts are command-line Python scripts. Check Python version compatibility before running, as `SAM_counter.py` uses Python 2 style print statements.
-
-## Suggested workflow
-
-1. Check that the required input files are available locally.
-2. Update `setwd()` calls and file paths to match your directory structure.
-3. Run the parsing scripts if alignment outputs need to be converted into count tables.
-4. Run the main R analysis scripts to generate figures and summary tables.
-5. Use the notebooks for exploratory checks of metadata and mildew pipeline outputs.
-
-## Notes
-
-This repository is primarily an analysis and figure-generation workspace rather than a packaged reproducible pipeline. For reuse, the main improvement would be to replace local absolute paths with project-relative paths and document the expected input files for each script.
