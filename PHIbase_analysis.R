@@ -11,9 +11,6 @@ library(patchwork)
 
 setwd("~/OneDrive - Norwich BioScience Institutes/Air_Samples/Tiptree")
 
-
-# Script to create heatmaps from Tiptree data ---
-
 # Reading in the data --------
 raw_f_a <- read.csv("Tiptree_taxa_counts_initial_analysis/Q20_Tiptree_combined_data.csv", header=TRUE)
 filter_f_a <- raw_f_a %>% 
